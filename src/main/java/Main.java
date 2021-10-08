@@ -16,8 +16,9 @@ public class Main {
         ResultSet rs = null;
 
         try {
-            conn = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
+//            conn = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
 
+            conn = DBUtil.getConnection(DBType.ORACLE);
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery("SELECT * FROM states");
 
