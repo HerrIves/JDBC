@@ -20,4 +20,10 @@ public class DBUtil {
             default: return null;
         }
     }
+
+    public static void processException(SQLException e){
+        System.err.println("Error masage: " + e.getMessage());
+        System.err.println("Error code: " + e.getErrorCode());
+        System.err.println("SQL state: " + e.getSQLState());
+    }
 }
