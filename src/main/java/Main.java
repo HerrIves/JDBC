@@ -10,15 +10,18 @@ public class Main {
 
         try {
 
-            conn = DBUtil.getConnection(DBType.MYSQL);
+            conn = DBUtil.getConnection(
+/*                    DBType.MYSQL
+// */                 DBType.ORACLE
+            );
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            rs = stmt.executeQuery("SELECT * FROM packages");
+            rs = stmt.executeQuery("SELECT * FROM package");
 
             rs.last();
             System.out.println("Number of rows:" + rs.getRow());
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            DBUtil.processException(e);
 
         } finally {
             if (rs != null){
