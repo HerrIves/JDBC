@@ -6,7 +6,7 @@ import java.sql.*;
 
 public class Main {
     private static final String SQL =
-            "SELECT tourId, tourName, price FROM tours WHERE price <= ?";
+            "{call GetToursByPrice(?)}";
 
     public static void main(String[] args) throws SQLException {
 
@@ -21,7 +21,7 @@ public class Main {
         ResultSet rs = null;
         try (
                 Connection conn = DBUtil.getConnection(DBType.MYSQL);
-                PreparedStatement stmt = conn.prepareStatement(
+                CallableStatement stmt = conn.prepareCall(
                         SQL,
                         ResultSet.TYPE_SCROLL_INSENSITIVE,
                         ResultSet.CONCUR_READ_ONLY);
