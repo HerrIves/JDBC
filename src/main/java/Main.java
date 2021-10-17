@@ -6,7 +6,7 @@ import java.sql.*;
 
 public class Main {
     private static final String SQL =
-            "{call GetToursByPrice(?)}";
+            "{call GetToursWithCountByPrice(?, ?)}";
 
     public static void main(String[] args) throws SQLException {
 
@@ -27,8 +27,12 @@ public class Main {
                         ResultSet.CONCUR_READ_ONLY);
                 ){
             stmt.setDouble(1, maxPrice);
+            stmt.registerOutParameter("total", Types.INTEGER);
             rs = stmt.executeQuery();
-            Tours.displayData(rs);
+
+            int nRows = stmt.getInt("total");
+
+            Tours.displayData(rs, nRows);
 
         } catch (SQLException e) {
             DBUtil.processException(e);

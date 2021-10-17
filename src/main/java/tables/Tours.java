@@ -6,9 +6,9 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class Tours {
-    public static void displayData(ResultSet rs) throws SQLException {
-        rs.last();
-        int nRows = rs.getRow();
+    public static void displayData(ResultSet rs, int nRows) throws SQLException {
+//        rs.last();
+//        int nRows = rs.getRow();
         if (nRows == 0) {
             System.out.println("No tours were found" );
         } else {
