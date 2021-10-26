@@ -1,11 +1,9 @@
 package db.tables;
 
 import db.*;
+import db.beans.Admin;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class AdminManager {
     public static void displayAllRows() throws SQLException {
@@ -24,6 +22,47 @@ public class AdminManager {
                 System.out.println(bf.toString());
             }
         }
-
     }
+
+    public static Admin getRow(int adminId) throws SQLException {
+        String sql = "SELECT * FROM admin WHERE adminId = ?";
+        ResultSet rs =  null;
+
+        try(
+                Connection conn = DBUtil.getConnection(DBType.MYSQL);
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                ){
+            stmt.setInt(1, adminId);
+            rs = stmt.executeQuery();
+
+            if (rs.next()){
+                Admin bean = new Admin();
+                bean.setAdminId(adminId);
+                bean.setUserName(rs.getString("userName"));
+                bean.setPassword(rs.getString("password"));
+                return bean;
+            }else {
+                return null;
+            }
+        }catch (SQLException e){
+            System.err.println(e);
+            return null;
+        }finally {
+            if (rs != null){
+                rs.close();
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }
