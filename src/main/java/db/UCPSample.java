@@ -1,4 +1,4 @@
-/* Copyright (c) 2015, Oracle and/or its affiliates. All rights reserved.*/
+package db;/* Copyright (c) 2015, Oracle and/or its affiliates. All rights reserved.*/
 
 /*
  DESCRIPTION
@@ -11,7 +11,7 @@
  (d)Get the connection and perform some database operations.     
  Step 1: Enter the Database details in DBConfig.properties file. 
  USER, PASSWORD, UCP_CONNFACTORY and URL are required.                   
- Step 2: Run the sample with "ant UCPSample"
+ Step 2: Run the sample with "ant myJDBC.UCPSample"
  NOTES
  Use JDK 1.7 and above  
  MODIFIED    (MM/DD/YY)
@@ -21,7 +21,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
 
 import oracle.ucp.jdbc.PoolDataSourceFactory;
 import oracle.ucp.jdbc.PoolDataSource;
@@ -80,7 +79,7 @@ public class UCPSample {
             doSQLWork(conn);
         }
         catch (SQLException e) {
-            System.out.println("UCPSample - " + "SQLException occurred : "
+            System.out.println("myJDBC.UCPSample - " + "SQLException occurred : "
                     + e.getMessage());
         }
         System.out.println("Available connections after checkin: "
@@ -123,7 +122,7 @@ public class UCPSample {
             System.out.println("\nSuccessfully tested a connection from UCP");
         }
         catch (SQLException e) {
-            System.out.println("UCPSample - "
+            System.out.println("myJDBC.UCPSample - "
                     + "doSQLWork()- SQLException occurred : " + e.getMessage());
         }
         finally {
@@ -132,7 +131,7 @@ public class UCPSample {
                 statement.execute("drop table EMP");
             }
             catch (SQLException e) {
-                System.out.println("UCPSample - "
+                System.out.println("myJDBC.UCPSample - "
                         + "doSQLWork()- SQLException occurred : " + e.getMessage());
             }
         }
