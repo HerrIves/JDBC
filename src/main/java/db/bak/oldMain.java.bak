@@ -1,10 +1,10 @@
-import tables.States;
-import tables.Tours;
+package db;
+import db.tables.Tours;
 import util.InputHelper;
 
 import java.sql.*;
 
-public class Main {
+public class oldMain {
     private static final String SQL =
             "{call GetToursWithCountByPrice(?, ?)}";
 
