@@ -10,13 +10,20 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         AdminManager.displayAllRows();
 
-        Admin bean = new Admin();
-        bean.setUserName(InputHelper.getInput("User name: "));
-        bean.setPassword(InputHelper.getInput("User password: "));
+        int adminId = (int) InputHelper.getDoubleInput("Select a row to update: ");
 
-        boolean result = AdminManager.insert(bean);
-        if (result){System.out.println("suksess");
-        }else System.out.println("unsuksess");
+        Admin bean = AdminManager.getRow(adminId);
+        if (bean == null){
+            System.err.println("err");
+            return;
+        }
+
+        String password = InputHelper.getInput("Enter new password: ");
+        bean.setPassword(password);
+
+        if (AdminManager.update(bean)){
+            System.out.println("yes");
+        }else System.out.println("no");
     }
 }
 
