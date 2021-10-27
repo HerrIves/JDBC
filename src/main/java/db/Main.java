@@ -10,19 +10,16 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         AdminManager.displayAllRows();
 
-        int adminId = (int) InputHelper.getDoubleInput("Select a row: ");
+        Admin bean = new Admin();
+        bean.setUserName(InputHelper.getInput("User name: "));
+        bean.setPassword(InputHelper.getInput("User password: "));
 
-        Admin bean = AdminManager.getRow(adminId);
-
-        if (bean == null){
-            System.err.println("no rows were found");
-        } else {
-            System.out.println("Admin id: " + bean.getAdminId());
-            System.out.println("User name id: " + bean.getUserName());
-            System.out.println("password id: " + bean.getPassword());
-        }
+        boolean result = AdminManager.insert(bean);
+        if (result){System.out.println("suksess");
+        }else System.out.println("unsuksess");
     }
 }
+
 
 
 
