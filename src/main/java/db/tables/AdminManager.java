@@ -85,21 +85,24 @@ public class AdminManager {
 
     public static boolean update(Admin bean) {
 
-        String sql = "UPDATE admin SET " +
-                "userName = ?, password = ? " +
-                "WHERE adminId = ?";
+        String sql = "SELECT * FROM admin WHERE adminId = ?";
+        ResultSet rs = null;
         try (
                 Connection conn = DBUtil.getConnection(DBType.MYSQL);
-                PreparedStatement stmt = conn.prepareStatement(sql);
+                PreparedStatement stmt = conn.prepareStatement(
+                        sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
+                        ResultSet.CONCUR_UPDATABLE);
         ) {
+//            stmt.setString(1, bean.getUserName());
+//            stmt.setString(2, bean.getPassword());
+            stmt.setInt(1, bean.getAdminId());
 
-            stmt.setString(1, bean.getUserName());
-            stmt.setString(2, bean.getPassword());
-            stmt.setInt(3, bean.getAdminId());
+            rs = stmt.executeQuery();
 
-            int affected = stmt.executeUpdate();
-
-            if (affected == 1) {
+            if (rs.next()) {
+                rs.updateString("userName", bean.getUserName());
+                rs.updateString("password", bean.getPassword());
+                rs.updateRow();
                 return true;
             } else return false;
 

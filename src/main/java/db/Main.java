@@ -1,5 +1,6 @@
 package db;
 
+import db.beans.Admin;
 import db.tables.AdminManager;
 import util.InputHelper;
 
@@ -9,12 +10,19 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         AdminManager.displayAllRows();
 
-        int adminId = (int) InputHelper.getDoubleInput("Enter adminId for delete: ");
+        int adminId = (int) InputHelper.getDoubleInput("Enter adminId for update: ");
 
-        if (AdminManager.delete(adminId)){
+        Admin bean = AdminManager.getRow(adminId);
+        if (bean == null){
+            System.out.println("nool");
+            return;
+        }
+
+        String password = InputHelper.getInput("Enter new password");
+        bean.setPassword(password);
+        if (AdminManager.update(bean)){
             System.out.println("suksess");
         }else System.out.println("not");
-
     }
 }
 
