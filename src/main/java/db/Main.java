@@ -8,6 +8,10 @@ import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
+        System.out.println("Starting application");
+
+        ConnectionManager.getInstance().setDbType(DBType.MYSQL);
+
         AdminManager.displayAllRows();
 
         int adminId = (int) InputHelper.getDoubleInput("Enter adminId for update: ");
@@ -23,6 +27,8 @@ public class Main {
         if (AdminManager.update(bean)){
             System.out.println("suksess");
         }else System.out.println("not");
+
+        ConnectionManager.getInstance().close();
     }
 }
 
